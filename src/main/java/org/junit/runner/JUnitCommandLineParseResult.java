@@ -122,13 +122,14 @@ class JUnitCommandLineParseResult {
     }
 
     private Request applyFilterSpecs(Request request) {
+        Request newReq = request;
         try {
             for (String filterSpec : filterSpecs) {
                 Filter filter = FilterFactories.createFilterFromFilterSpec(
                         request, filterSpec);
-                request = request.filterWith(filter);
+                newReq = request.filterWith(filter);
             }
-            return request;
+            return newReq;
         } catch (FilterNotCreatedException e) {
             return errorReport(e);
         }
